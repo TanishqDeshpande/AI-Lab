@@ -1,31 +1,90 @@
-def clean(floor):
-    i=0
-    j=0
-    x=0
-    row=len(floor)
-    column=len(floor[0])
-    while(row != 0):
-        if floor[i][j] == 1:
-            floor[i][j]=0
-            x=x+1
-            print_floor(floor,i,j,x)
-            j=j+1
-        else:
-            j=j+1
-        if j==column:
-            j=0
-            i=i+1
-            row=row-1
+import random
+
+class Environment(object):
+    def __init__(self):
+       
+        self.locationCondition = {'A': '0', 'B': '0'}
+
+   
+        self.locationCondition['A'] = random.randint(0, 1)
+        self.locationCondition['B'] = random.randint(0, 1)
+
+
+class SimpleReflexVacuumAgent(Environment):
+    def __init__(self, Environment):
+        print (Environment.locationCondition)
+     
+        vacuumLocation = random.randint(0, 1)
+      
+        if vacuumLocation == 0:
+            print ("Vacuum is randomly placed at Location A")
+      
+            if Environment.locationCondition['A'] == 1:
+                print ("Location A is Dirty. ")
+                
+                Environment.locationCondition['A'] = 0;
+              
+                print ("Location A has been Cleaned. :D")
+
+             
+                if Environment.locationCondition['B'] == 1:
+                    print ("Location B is Dirty.")
+                  
+                    print ("Moving to Location B...")
+                   
+                   
+                    Environment.locationCondition['B'] = 0;
+                   
+                    print ("Location B has been Cleaned :D.")
+            else:
+
+                
+                if Environment.locationCondition['B'] == 1:
+                    print ("Location B is Dirty.")
             
+                  
+                    print ("Moving to Location B...")
+              
+                    Environment.locationCondition['B'] = 0;
+                   
+                    print ("Location B has been Cleaned.")
 
-def print_floor(floor, row, col,count):# row, col represent the current vacuum cleaner position
-    print('step:',count)
-    for x in floor:
-        print(x)
-    print('vaccum cleaner :',row,col)
-floor = [[1, 1, 0, 0, 1, 0, 0],
-         [0, 0, 0, 1, 0, 0, 0],
-         [0, 1, 1, 1, 1, 1, 1],
-         [0, 1, 0, 1, 0, 1, 0]]
+        elif vacuumLocation == 1:
+            print ("Vacuum is randomly placed at Location B. ")
+        
+            if Environment.locationCondition['B'] == 1:
+                print ("Location B is Dirty")
+               
+                Environment.locationCondition['B'] = 0;
+             
+                print ("Location B has been Cleaned")
 
-clean(floor)
+             
+                if Environment.locationCondition['A'] == 1:
+                    print ("Location A is Dirty")
+                
+                 
+                    print ("Moving to Location A")
+              
+                    Environment.locationCondition['A'] = 0;
+                   
+                    print ("Location A has been Cleaned")
+            else:
+
+             
+                if Environment.locationCondition['A'] == 1:
+                    print ("Location A is Dirty")
+                 
+                    print ("Moving to Location A")
+                 
+    
+                    Environment.locationCondition['A'] = 0;
+                  
+                    print ("Location A has been Cleaned")
+      
+        print (Environment.locationCondition)
+       
+
+
+theEnvironment = Environment()
+theVacuum = SimpleReflexVacuumAgent(theEnvironment)
